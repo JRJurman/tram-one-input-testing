@@ -1,10 +1,7 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-import { registerHtml, start, useEffect } from 'tram-one'
-import AppHeader from './app-header'
-import AppSummary from './app-summary'
-import appTaskDescription from './app-task-description'
-import AppTaskList from './app-task-list'
+import { registerHtml, start, useGlobalStore } from 'tram-one'
+import inputComponent from './input-component'
 import './styles.css'
 
 /**
@@ -13,23 +10,17 @@ import './styles.css'
  */
 
 const html = registerHtml({
-	'app-header': AppHeader,
-	'app-summary': AppSummary,
-	'app-task-list': AppTaskList,
-	'app-task-description': appTaskDescription,
+	'input-component': inputComponent
 })
 
 const home = () => {
-	useEffect(() => {
-		console.log('Thanks for using Tram-One!')
-	})
+	// setup the text default value to empty string (this is used by the inputs)
+	useGlobalStore('text', {value: ''})
+
 	return html`
 		<main>
-			<app-header>input-testing checklist</app-header>
-			<app-summary />
-			<app-task-list />
-			<hr />
-			<app-task-description />
+			<input-component />
+			<input-component />
 		</main>
 	`
 }
