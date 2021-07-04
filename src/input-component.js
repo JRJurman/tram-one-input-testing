@@ -7,7 +7,7 @@ export default (props, children) => {
 
 	const onEvent = (event) => {
 		workingText.value = event.target.value
-		console.log(workingText.value)
+		console.log('workingText.value', workingText.value)
 	}
 
 	return html`

@@ -15,10 +15,16 @@ const html = registerHtml({
 
 const home = () => {
 	// setup the text default value to empty string (this is used by the inputs)
-	useGlobalStore('text', {value: ''})
+	const workingText = useGlobalStore('text', {value: ''})
+
+	const onEvent = (event) => {
+		workingText.value = event.target.value
+		console.log('workingText.value', workingText.value)
+	}
 
 	return html`
 		<main>
+			<input class="input-component" type="text" value=${workingText.value} onkeyup=${onEvent} />
 			<input-component />
 			<input-component />
 		</main>
