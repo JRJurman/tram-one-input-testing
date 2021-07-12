@@ -1,6 +1,6 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-import { registerHtml, start, useGlobalStore } from 'tram-one'
+import { registerHtml, start, useGlobalStore, useEffect } from 'tram-one'
 import inputComponent from './input-component'
 import './styles.css'
 
@@ -17,16 +17,20 @@ const home = () => {
 	// setup the text default value to empty string (this is used by the inputs)
 	const workingText = useGlobalStore('text', {value: ''})
 
+	useEffect(() => {
+		console.log(`re-rendering main component`, workingText.value)
+		return () => { console.log(`removing main component`) }
+	})
+
 	const onEvent = (event) => {
 		workingText.value = event.target.value
-		console.log('workingText.value', workingText.value)
 	}
 
 	return html`
 		<main>
-			<input class="input-component" type="text" value=${workingText.value} onkeyup=${onEvent} />
-			<input-component />
-			<input-component />
+			<input id="0" class="main input-component" type="text" value=${workingText.value} onkeyup=${onEvent} />
+			<input-component id="1" />
+			<input-component id="2" />
 		</main>
 	`
 }
